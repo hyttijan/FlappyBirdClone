@@ -22,12 +22,14 @@ public class Controller implements Runnable{
         this.model = model;
         this.view = view;
         this.thread = new Thread(this);
+        this.thread.start();
+   
+      
         
     }
     
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable(){
-
             @Override
             public void run() {
                 Model model = new Model();
@@ -38,37 +40,50 @@ public class Controller implements Runnable{
         
         });
     }
-    
     public Model getModel(){
         return this.model;
     }
-    public void startGame(){
-       
-        model.changeGameState(GameState.GAME);
-        this.thread.start();
+    public void startGame(){ 
+                  
+        
+        this.model.init();
+        this.model.changeGameState(GameState.GAME);
+  
+        
+        
     }
     public void highscores(){
-        model.changeGameState(GameState.GAME);
+        model.changeGameState(GameState.HIGHSCORE);
+        
     }
     public void menu(){
          model.changeGameState(GameState.MENU);
     }
-    public void fly(){
+    public void newHighscore(String name){
+        model.newHighscore(name);
+    }
+    public void click(){
+        if(model.getGameState()==GameState.GAME){   
         model.fly();
+        }
     }
 
     @Override
     public void run() {
-        
-        while(model.getGameState()==GameState.GAME){
-            try {
+         try {
+        while(true){
+            if(model.getGameState()==GameState.GAME){   
                 model.update();
                 view.update();
-                Thread.sleep(5);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
+            Thread.sleep(5);
         }
+       
+         } catch (InterruptedException ex) {
+             
+            }
+        
+      
     }
     
 }

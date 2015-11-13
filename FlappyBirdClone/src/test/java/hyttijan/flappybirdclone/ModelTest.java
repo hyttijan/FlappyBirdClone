@@ -21,18 +21,11 @@ public class ModelTest {
     Model model;
     public ModelTest() {
     }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+   
     @Before
     public void setUp() {
         model = new Model();
+        model.init();
     }
     
     @After
@@ -90,11 +83,37 @@ public class ModelTest {
     }
 
     /**
-     * Testataan että update-metodi toimii oikein.
+     * Testataan että newRecord-metodi toimii oikein.
      */
     @Test
-    public void testUpdate() {
-        
+    public void testNewRecord() {
+        /**
+        *Jos listassa on jo 10. pelaajaa, ei uutta pelaajaa lisätä automaattisesti listaan.
+        */
+        if(this.model.getHighscoreList().getPlayers().size()==10){
+            /**
+            *Suoritetaan looppia, jossa lisätään koko ajan pisteitä, niin kauan kunnes pelaajalla on yhtä paljon
+            * kuin listan viimeisellä. Tämän ei pitäisi riittää listalle pääsyyn
+            */
+        for(int i=0;i<this.model.getHighscoreList().getPlayers().get(9).getScore();i++){
+             this.model.addPoints();
+            assertFalse(this.model.newRecord());
+        }
+        /**
+         * Nyt lisätään pisteitä vielä kerran, tämän pitäisi riittää listalle pääsyyn.
+        */
+        this.model.addPoints();
+        assertTrue(this.model.newRecord());
+        }
+        /**
+        *Jos pelaajia on vähemmän kuin kymmenen pääsee automaattisesti listoille.
+        */
+        else{
+        assertTrue(this.model.newRecord());
+        }
+    
+    
+       
     }
 
     /**

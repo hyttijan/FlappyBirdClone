@@ -45,6 +45,13 @@ public class GameBg {
         this.x2=640;
         }
     }
+    public double getX(){
+        return this.x;
+    }
+    public double getX2(){
+        return this.x2;
+    }
+    
     public void paintGameBg(Graphics g){
       
         g.drawImage(image,(int)this.x,this.y,640,480, null);

@@ -5,7 +5,6 @@
  */
 package hyttijan.flappybirdclone;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -14,9 +13,9 @@ import java.util.ArrayList;
  */
 public class Model {
     public enum GameState{
-        MENU,GAME,GAMEOVER,HIGHSCORE
+        MENU,GAME,GAMEOVER,HIGHSCORE,NEWRECORD
     }
-  
+    private HighscoreList highscoreList;
     private Bird bird;
     private GameBg gameBg;
     private GameState gameState;
@@ -27,20 +26,22 @@ public class Model {
     
     public Model(){
        this.gameState = GameState.MENU;
+       this.highscoreList = new HighscoreList();
+       
+    }
+    public HighscoreList getHighscoreList(){
+        return this.highscoreList;
+    }
+    public void init(){
+      
        this.bird = new Bird(290,220);
        this.gameBg = new GameBg();
-
        this.points = 0;
        this.blocks = new ArrayList<Block>();
        this.blocks.add(new Block(640));
        this.blocks.add(new Block(1040));
        this.blocks.add(new Block(1440));
-
-      
-       
-     
     }
-
     public int getPoints(){
         return this.points;
     }
@@ -54,34 +55,50 @@ public class Model {
     public void addPoints(){
         this.points++;
     }
+    public void newHighscore(String name){
+        this.highscoreList.writePlayer(new Player(name, this.points));
+        
+    }
     public void update(){
         this.gameBg.updateX();
         this.bird.setVelocityY(this.bird.getVelocityY()+gravity);
         this.bird.move();
         if(this.bird.getY()<0|this.bird.getY()+this.bird.getHeight()>480){
-         this.gameState=GameState.GAMEOVER;   
+             if(newRecord()){
+                   this.gameState=GameState.NEWRECORD; 
+             }
+             else{
+                   this.gameState=GameState.GAMEOVER; 
+             }
+           
         }
+        
+        
         for(int i=0;i<this.blocks.size();i++){
             this.blocks.get(i).move();
                 if(collission(this.blocks.get(i))){
-                   this.gameState=GameState.GAMEOVER;
-                  
-                    
+                   if(newRecord()){
+                   this.gameState=GameState.NEWRECORD; 
+                   }
+                   else{
+                   this.gameState=GameState.GAMEOVER;   
+                   }
                 }
                 if(this.blocks.get(i).getX()+this.blocks.get(i).getWidth()<290&&this.blocks.get(i).getPoints()){
                    this.blocks.get(i).setPoints(false);
                    this.addPoints();
-                }
-                    
-                
-                if(this.blocks.get(i).getX()<-640){
-                   this.blocks.remove(i);
-                
-                }
+                } 
         }
-        
-      
     }
+   public boolean newRecord(){
+    if(this.getHighscoreList().getPlayers().size()==10){
+       if(this.points>this.getHighscoreList().getPlayers().get(9).getScore()){
+       return true;
+       }
+    return false;   
+    }   
+       return true;
+   }
   
     public boolean collission(Block block){
         boolean collissionX = this.bird.getX()+this.bird.getWidth()>=block.getX()&&this.bird.getX()<=block.getX()+block.getWidth();

@@ -11,7 +11,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,72 +19,69 @@ import java.util.logging.Logger;
  *
  * @author janne
  */
-public class HighscoreList implements Serializable {
+public class HighscoreList{
     private File file;
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
     private ArrayList<Player> players;
+
          
     public HighscoreList(){
-        this.players = new ArrayList<Player>();
-        this.file = new File("highscoreList.dat");
-        try {
-            this.file.createNewFile();
-             this.readFile();
-        } catch (IOException ex) {
-            Logger.getLogger(HighscoreList.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-       
-       
-       
+       this.file = new File("highscorelist.dat");
+       this.readFile();       
     }
     public void readFile(){
         try {
-            this.ois  = new ObjectInputStream(new FileInputStream(this.file));
-            Player player;
-            try {
-                while((player = (Player) this.ois.readObject())!=null){
-                    this.players.add(player);
-                }
-            this.ois.close();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(HighscoreList.class.getName()).log(Level.SEVERE, null, ex);
+            /**
+             * Jos tiedostoa ei ole olemassa luodaan se.
+             */
+            if(this.file.createNewFile()){
+     
             }
+            /**
+             * Yritetään lukea ArrayListia pelaajista, jos tiedosto on tyhjä
+             * otetaan poikkeus kiinni ja luodaan tyhjä ArrayList-pelaajista.
+             */
+           this.ois = new ObjectInputStream(new FileInputStream(this.file));
+           this.players = (ArrayList<Player>) this.ois.readObject();
+           this.ois.close();
         } catch (IOException ex) {
-            
+          this.players = new ArrayList<>();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(HighscoreList.class.getName()).log(Level.SEVERE, null, ex);
         }
+            
+        
+    }
+    public void writePlayer(Player player){
+        /**
+         * Lisätään uusi pelaaja ArrayListiin ja lajitellaan pelaajat pisteiden mukaan, poistetaan 11.pelaaja.
+         */
+        this.players.add(player);
+        this.players.sort(player);
+        if(this.players.size()>10){
+        this.players.remove(10);
+        }
+        this.writeToFile();
+    }
+    
+    public void writeToFile(){
+        /**
+         * Kirjoitetaan uusi ArrayList tiedostoon.
+        */
+        try {
+            this.oos = new ObjectOutputStream(new FileOutputStream(this.file));
+            this.oos.writeObject(this.players);
+            this.oos.close();
+        } catch (IOException ex) {
+            Logger.getLogger(HighscoreList.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
     public ArrayList<Player> getPlayers(){
         return this.players;
     }
-    public void writePlayer(String name,int score){
-        Player player = new Player(name,score);
-        try {
-            this.oos = new ObjectOutputStream(new FileOutputStream(this.file));
-            this.oos.writeObject(player);
-            this.oos.close();
-        } catch (IOException ex) {
-            Logger.getLogger(HighscoreList.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-    public class Player implements Serializable{
-        private String name;
-        private int score;
-        
-        public Player(String name,int score){
-        this.name = name;
-        this.score = score;
-        }
-        public String getName(){
-          return this.name;   
-        }
-        public int getScore(){
-            return this.score;
-        }
-        
-    }
+    
+   
     
    
     
