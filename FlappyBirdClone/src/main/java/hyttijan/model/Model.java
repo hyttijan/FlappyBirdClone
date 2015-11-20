@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hyttijan.flappybirdclone;
+package hyttijan.model;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,7 @@ public class Model {
         return this.highscoreList;
     }
     public void init(){
-      
+       
        this.bird = new Bird(290,220);
        this.gameBg = new GameBg();
        this.points = 0;
@@ -41,6 +41,7 @@ public class Model {
        this.blocks.add(new Block(640));
        this.blocks.add(new Block(1040));
        this.blocks.add(new Block(1440));
+       this.gameState=GameState.GAME;
     }
     public int getPoints(){
         return this.points;
@@ -59,30 +60,17 @@ public class Model {
         this.highscoreList.writePlayer(new Player(name, this.points));
         
     }
-    public void update(){
+     public void update(){
         this.gameBg.updateX();
         this.bird.setVelocityY(this.bird.getVelocityY()+gravity);
         this.bird.move();
-        if(this.bird.getY()<0|this.bird.getY()+this.bird.getHeight()>480){
-             if(newRecord()){
-                   this.gameState=GameState.NEWRECORD; 
-             }
-             else{
-                   this.gameState=GameState.GAMEOVER; 
-             }
-           
+        if(collissionBoundaries()){
+             gameOverOrNewRecord();
         }
-        
-        
         for(int i=0;i<this.blocks.size();i++){
             this.blocks.get(i).move();
                 if(collission(this.blocks.get(i))){
-                   if(newRecord()){
-                   this.gameState=GameState.NEWRECORD; 
-                   }
-                   else{
-                   this.gameState=GameState.GAMEOVER;   
-                   }
+                   gameOverOrNewRecord();
                 }
                 if(this.blocks.get(i).getX()+this.blocks.get(i).getWidth()<290&&this.blocks.get(i).getPoints()){
                    this.blocks.get(i).setPoints(false);
@@ -90,6 +78,18 @@ public class Model {
                 } 
         }
     }
+      public boolean collissionBoundaries(){
+        boolean collissionBoundaries = this.bird.getY()<0|this.bird.getY()+this.bird.getHeight()>480;
+        return collissionBoundaries;
+    }
+     public void gameOverOrNewRecord(){
+        if(newRecord()){
+            this.gameState=GameState.NEWRECORD; 
+        }
+        else{
+            this.gameState=GameState.GAMEOVER; 
+        }
+   }
    public boolean newRecord(){
     if(this.getHighscoreList().getPlayers().size()==10){
        if(this.points>this.getHighscoreList().getPlayers().get(9).getScore()){

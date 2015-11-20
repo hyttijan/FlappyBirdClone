@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hyttijan.flappybirdclone;
+package hyttijan.model;
 
 import java.util.ArrayList;
 import org.junit.After;

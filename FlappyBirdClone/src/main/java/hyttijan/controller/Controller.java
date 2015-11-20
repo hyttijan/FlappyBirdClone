@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hyttijan.flappybirdclone;
+package hyttijan.controller;
 
-import hyttijan.flappybirdclone.Model.GameState;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import hyttijan.view.View;
+import hyttijan.model.Model;
+import hyttijan.model.Model.GameState;
 import javax.swing.SwingUtilities;
 
 /**
@@ -44,10 +44,8 @@ public class Controller implements Runnable{
         return this.model;
     }
     public void startGame(){ 
-                  
-        
         this.model.init();
-        this.model.changeGameState(GameState.GAME);
+       
   
         
         

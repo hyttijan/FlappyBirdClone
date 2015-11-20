@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hyttijan.flappybirdclone;
+package hyttijan.model;
 
-import hyttijan.flappybirdclone.Model.GameState;
+import hyttijan.model.Model.GameState;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -30,6 +28,48 @@ public class ModelTest {
     
     @After
     public void tearDown() {
+    }
+    /**
+     * Testataan että init-metodia. Tarkistetaan että se alustaa pelin oikein.
+     */
+    @Test
+    public void testInit(){
+        model.init();
+        assertEquals(model.getPoints(),0);
+        assertEquals(model.getBird().getY(),220,0);
+        assertEquals(model.getBird().getX(),290,0);
+        assertEquals(model.getBlocks().get(0).getX(),640);
+        assertEquals(model.getBlocks().get(1).getX(),1040);
+        assertEquals(model.getBlocks().get(2).getX(),1440);
+    }
+    /**
+     * Testataan update-metodia ja että se päivittää olioiden arvot oikein.
+     */
+    @Test
+    public void testUpdate(){
+        
+        model.init();
+        model.update();
+        assertEquals(model.getGameState(),GameState.GAME);
+        assertEquals(model.getBird().getVelocityY(),0.00981,0);
+        assertEquals(model.getBlocks().get(0).getX(),639,0);
+        assertEquals(model.getBlocks().get(1).getX(),1039,0);
+        assertEquals(model.getBlocks().get(2).getX(),1439,0);        
+    }
+    
+    @Test
+    public void testUpdate2(){
+        model.init();
+        model.changeGameState(GameState.GAME);
+        while(model.getGameState()==GameState.GAME){
+        model.update();
+        }
+        if(model.getHighscoreList().getPlayers().size()==10){
+        assertEquals(model.getGameState(),GameState.GAMEOVER);    
+        }
+        else{
+        assertEquals(model.getGameState(),GameState.NEWRECORD);    
+        }         
     }
 
     /**
@@ -115,7 +155,7 @@ public class ModelTest {
     
        
     }
-
+    
     /**
      * Testataan että linnun törmäys toimii oikein palikoihin.
      */
@@ -175,6 +215,7 @@ public class ModelTest {
         assertTrue(model.getBird().getVelocityY()<velocityY);
         
     }
+   
 
     /**
      * Testataan että getBird-metodi ei palauta null-arvoa.

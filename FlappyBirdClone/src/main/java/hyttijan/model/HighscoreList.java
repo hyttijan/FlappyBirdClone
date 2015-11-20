@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hyttijan.flappybirdclone;
+package hyttijan.model;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,12 +44,12 @@ public class HighscoreList{
              * otetaan poikkeus kiinni ja luodaan tyhjä ArrayList-pelaajista.
              */
            this.ois = new ObjectInputStream(new FileInputStream(this.file));
-           this.players = (ArrayList<Player>) this.ois.readObject();
+           this.players = (ArrayList <Player>)this.ois.readObject();
            this.ois.close();
         } catch (IOException ex) {
           this.players = new ArrayList<>();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(HighscoreList.class.getName()).log(Level.SEVERE, null, ex);
+          this.players = new ArrayList<>();
         }
             
         
@@ -58,7 +59,7 @@ public class HighscoreList{
          * Lisätään uusi pelaaja ArrayListiin ja lajitellaan pelaajat pisteiden mukaan, poistetaan 11.pelaaja.
          */
         this.players.add(player);
-        this.players.sort(player);
+        Collections.sort(this.players,player);
         if(this.players.size()>10){
         this.players.remove(10);
         }

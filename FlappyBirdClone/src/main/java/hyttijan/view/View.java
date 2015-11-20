@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hyttijan.flappybirdclone;
+package hyttijan.view;
 
 
-import hyttijan.flappybirdclone.Model.GameState;
+import hyttijan.controller.Controller;
+import hyttijan.model.Model;
+import hyttijan.model.Model.GameState;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hyttijan.flappybirdclone;
+package hyttijan.model;
 
 import org.junit.After;
 import org.junit.Before;
@@ -96,8 +96,15 @@ public class BirdTest {
         double expectedResult = y+velocityY;
         bird.move();
         assertEquals(bird.getY(),expectedResult,0);
-        
-    
+    }
+    @Test
+    public void testMove2() {
+        double y = bird.getY();
+        double velocityY = bird.getVelocityY();
+        double expectedResult = y+velocityY*2;
+        bird.move();
+        bird.move();
+        assertEquals(bird.getY(),expectedResult,0);
     }
 
     /**
@@ -108,7 +115,7 @@ public class BirdTest {
         double expectedResult = 0;
         assertEquals(bird.getVelocityY(),expectedResult,0);
     }
-
+    
    
     
 }
