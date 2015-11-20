@@ -40,14 +40,15 @@
             <version>1.1.4</version>
             <configuration>
                 <targetClasses>
-                    <param>hyttijan.controller.*</param>
+                    
                     <param>hyttijan.model.*</param>
+                    <param>hyttijan.controller.*</param>
                     
                 </targetClasses>
                 <targetTests>
-                    <param>hyttijan.controller.*</param>
-                    <param>hyttijan.model.*</param>
                     
+                    <param>hyttijan.model.*</param>
+                    <param>hyttijan.controller.*</param>
                 </targetTests>
             </configuration>
         </plugin>

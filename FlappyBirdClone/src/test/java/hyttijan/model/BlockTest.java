@@ -52,6 +52,16 @@ public class BlockTest {
         int expectedResult = 100;
         assertEquals(block.getX(),expectedResult);
     }
+    /**
+     * Testataan että generateY-metodi generoi palikoiden väliin tarpeeksi tilaa.
+     */
+    @Test
+    public void testGenerateY() {
+        for(int i=0;i<999;i++){
+            block.generateY();
+            assertTrue(block.getY()-block.getY2()==120);
+        }
+    }
 
  
     

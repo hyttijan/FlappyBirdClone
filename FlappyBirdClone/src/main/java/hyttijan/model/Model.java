@@ -91,7 +91,7 @@ public class Model {
         }
    }
    public boolean newRecord(){
-    if(this.getHighscoreList().getPlayers().size()==10){
+    if(this.getHighscoreList().getPlayers().size()>=10){
        if(this.points>this.getHighscoreList().getPlayers().get(9).getScore()){
        return true;
        }

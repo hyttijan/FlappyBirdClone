@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package hyttijan.controller;
 
-import hyttijan.view.View;
 import hyttijan.model.Model;
-import hyttijan.model.Model.GameState;
+import hyttijan.view.View;
 import javax.swing.SwingUtilities;
+
 
 /**
  *
- * @author janne
+ * @author hyttijan
  */
 public class Controller implements Runnable{
     private View view;
@@ -23,9 +24,6 @@ public class Controller implements Runnable{
         this.view = view;
         this.thread = new Thread(this);
         this.thread.start();
-   
-      
-        
     }
     
     public static void main(String[] args) {
@@ -51,17 +49,17 @@ public class Controller implements Runnable{
         
     }
     public void highscores(){
-        model.changeGameState(GameState.HIGHSCORE);
+        model.changeGameState(Model.GameState.HIGHSCORE);
         
     }
     public void menu(){
-         model.changeGameState(GameState.MENU);
+         model.changeGameState(Model.GameState.MENU);
     }
     public void newHighscore(String name){
         model.newHighscore(name);
     }
     public void click(){
-        if(model.getGameState()==GameState.GAME){   
+        if(model.getGameState()==Model.GameState.GAME){   
         model.fly();
         }
     }
@@ -70,7 +68,7 @@ public class Controller implements Runnable{
     public void run() {
          try {
         while(true){
-            if(model.getGameState()==GameState.GAME){   
+            if(model.getGameState()==Model.GameState.GAME){   
                 model.update();
                 view.update();
             }

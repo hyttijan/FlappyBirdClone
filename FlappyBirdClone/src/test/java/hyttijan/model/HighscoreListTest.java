@@ -6,6 +6,7 @@
 package hyttijan.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,15 +32,45 @@ public class HighscoreListTest {
     @After
     public void tearDown() {
     }
-
+    /**
+     * Testataan ettei readFile() luo turhaan uutta tiedostoa.
+     */
+    @Test
+    public void testReadFile1() {
+        
+        if(this.highscoreList.getFile().exists()){
+           assertTrue(this.highscoreList.getPlayers().size()>0);
+        }
+        
+    }
     /**
      * Testataan ettei readFile() palauta null-arvoa pelaajista.
      */
     @Test
-    public void testReadFile() {
-       
+    public void testReadFile2() {
+        
         assertNotNull(this.highscoreList.getPlayers());
         
+    }
+    @Test
+    public void testWritePlayer(){
+        ArrayList expectedResult = this.highscoreList.getPlayers();
+        Player newPlayer = new Player("test",29);
+        expectedResult.add(newPlayer);
+        Collections.sort(expectedResult,new PlayerComp());
+        this.highscoreList.writePlayer(newPlayer);
+        this.highscoreList.readFile();
+        assertEquals(expectedResult,this.highscoreList.getPlayers());
+    }
+    @Test
+    public void testWritePlayer2(){
+        
+        Player newPlayer = new Player("test",29);
+        
+        this.highscoreList.writePlayer(newPlayer);
+        this.highscoreList.readFile();
+        
+        assertTrue(this.highscoreList.getPlayers().size()<=10);
     }
 
     /**
@@ -53,6 +84,7 @@ public class HighscoreListTest {
         this.highscoreList.readFile();
         assertEquals(test,this.highscoreList.getPlayers());
     }
+    
 
     
 }

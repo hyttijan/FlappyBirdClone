@@ -6,14 +6,11 @@
 
 package hyttijan.controller;
 
-import hyttijan.view.View;
 import hyttijan.model.Model;
-import hyttijan.model.Model.GameState;
+import hyttijan.view.View;
 import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -25,16 +22,10 @@ public class ControllerTest {
     View view;
     Model model;
     public ControllerTest() {
+    
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+        
     @Before
     public void setUp() {
     view = new View();
@@ -44,9 +35,15 @@ public class ControllerTest {
     
     }
     
-    @After
-    public void tearDown() {
+    @Test
+    public void testMain(){
+        
+        assertNotNull(controller.getModel());
+        assertNotNull(view);
     }
+   
+    
+    
     
 
     
@@ -58,7 +55,7 @@ public class ControllerTest {
     @Test
     public void testStartGame() {
         this.controller.startGame();
-        assertEquals(controller.getModel().getGameState(),GameState.GAME);
+        assertEquals(controller.getModel().getGameState(),Model.GameState.GAME);
         assertNotNull(controller.getModel().getBird());
         assertNotNull(controller.getModel().getBlocks());
         assertNotNull(controller.getModel().getGameBg());       
@@ -70,18 +67,7 @@ public class ControllerTest {
         assertEquals(controller.getModel().getBird().getVelocityY(),-0.5,0);
 
     }
-    /*
-    ** Testataan että run-toimii oikein kuin GameState on game
-    */
-    @Test
-    public void testRun(){
-        controller.startGame();
-        controller.run();
-        assertEquals(controller.getModel().getBird().getVelocityY(),0.00981,0);
-        assertEquals(controller.getModel().getBlocks().get(0).getX(),639,0);
-        assertEquals(controller.getModel().getBlocks().get(1).getX(),1039,0);
-        assertEquals(controller.getModel().getBlocks().get(2).getX(),1439,0);
-    }
-    
+   
+
     
 }

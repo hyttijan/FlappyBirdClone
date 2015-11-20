@@ -5,6 +5,7 @@
  */
 package hyttijan.model;
 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -37,8 +38,14 @@ public class HighscoreList{
              * Jos tiedostoa ei ole olemassa luodaan se.
              */
             if(this.file.createNewFile()){
-     
+                this.players = new ArrayList<>();
             }
+            /**
+             * Muussa tapauksessa luetaan tiedostosta.
+             */
+            else{
+                
+            
             /**
              * Yritetään lukea ArrayListia pelaajista, jos tiedosto on tyhjä
              * otetaan poikkeus kiinni ja luodaan tyhjä ArrayList-pelaajista.
@@ -46,22 +53,26 @@ public class HighscoreList{
            this.ois = new ObjectInputStream(new FileInputStream(this.file));
            this.players = (ArrayList <Player>)this.ois.readObject();
            this.ois.close();
+           }
         } catch (IOException ex) {
           this.players = new ArrayList<>();
         } catch (ClassNotFoundException ex) {
-          this.players = new ArrayList<>();
+          
         }
             
         
+    }
+    public File getFile(){
+        return this.file;
     }
     public void writePlayer(Player player){
         /**
          * Lisätään uusi pelaaja ArrayListiin ja lajitellaan pelaajat pisteiden mukaan, poistetaan 11.pelaaja.
          */
         this.players.add(player);
-        Collections.sort(this.players,player);
+        Collections.sort(players,new PlayerComp());
         if(this.players.size()>10){
-        this.players.remove(10);
+        this.players.removeAll(players.subList(10,players.size()-1));
         }
         this.writeToFile();
     }

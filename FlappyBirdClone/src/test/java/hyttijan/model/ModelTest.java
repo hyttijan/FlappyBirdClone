@@ -130,14 +130,15 @@ public class ModelTest {
         /**
         *Jos listassa on jo 10. pelaajaa, ei uutta pelaajaa lisätä automaattisesti listaan.
         */
-        if(this.model.getHighscoreList().getPlayers().size()==10){
+        if(this.model.getHighscoreList().getPlayers().size()>=10){
             /**
             *Suoritetaan looppia, jossa lisätään koko ajan pisteitä, niin kauan kunnes pelaajalla on yhtä paljon
             * kuin listan viimeisellä. Tämän ei pitäisi riittää listalle pääsyyn
             */
         for(int i=0;i<this.model.getHighscoreList().getPlayers().get(9).getScore();i++){
-             this.model.addPoints();
             assertFalse(this.model.newRecord());
+            this.model.addPoints();
+            
         }
         /**
          * Nyt lisätään pisteitä vielä kerran, tämän pitäisi riittää listalle pääsyyn.
@@ -239,6 +240,12 @@ public class ModelTest {
     @Test
     public void testGetGameState() {
        assertNotNull(model.getGameState()); 
+    }
+    
+    @Test
+    public void addPoints(){
+    model.addPoints();
+    assertEquals(model.getPoints(),1);
     }
     
 }

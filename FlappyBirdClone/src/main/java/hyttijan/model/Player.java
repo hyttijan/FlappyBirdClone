@@ -13,7 +13,7 @@ import java.util.Objects;
  *
  * @author janne
  */
- public class Player implements Serializable,Comparator{
+ public class Player implements Serializable{
         private String name;
         private int score;
         public Player(String name,int score){
@@ -26,21 +26,7 @@ import java.util.Objects;
         public String getName(){
             return this.name;
         }
-
-    @Override
-    public int compare(Object o1, Object o2) {
-        Player player1 = (Player)o1;
-        Player player2 = (Player)o2;
-        if(player1.getScore()<player2.getScore()){
-            return 1;
-        }
-        else if(player2.getScore()<player1.getScore()){
-            return -1;
-        }
-        else{
-        return 0;
-        }
-    }
+        
     @Override
     public boolean equals(Object player){
         if(this.hashCode()==player.hashCode()){
