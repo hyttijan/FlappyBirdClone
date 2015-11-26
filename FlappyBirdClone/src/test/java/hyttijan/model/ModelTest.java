@@ -6,6 +6,7 @@
 package hyttijan.model;
 
 import hyttijan.model.Model.GameState;
+import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,6 +53,7 @@ public class ModelTest {
         model.update();
         assertEquals(model.getGameState(),GameState.GAME);
         assertEquals(model.getBird().getVelocityY(),0.00981,0);
+        assertEquals(model.getGameBg().getX(),-0.5,0.0);
         assertEquals(model.getBlocks().get(0).getX(),639,0);
         assertEquals(model.getBlocks().get(1).getX(),1039,0);
         assertEquals(model.getBlocks().get(2).getX(),1439,0);        
@@ -64,8 +66,9 @@ public class ModelTest {
         while(model.getGameState()==GameState.GAME){
         model.update();
         }
-        if(model.getHighscoreList().getPlayers().size()==10){
+        if(model.getHighscoreList().getPlayers().size()>=10){
         assertEquals(model.getGameState(),GameState.GAMEOVER);    
+        
         }
         else{
         assertEquals(model.getGameState(),GameState.NEWRECORD);    
@@ -161,31 +164,32 @@ public class ModelTest {
      * Testataan että linnun törmäys toimii oikein palikoihin.
      */
     @Test
-    public void testCollission1() {
+    public void testCollission1() throws IOException {
         Block block = new Block(100);
         assertFalse(model.collission(block));
     }
     @Test
-    public void testCollission2() {
+    public void testCollission2() throws IOException {
         Block block = new Block(640);
         assertFalse(model.collission(block));
     }
     @Test
-    public void testCollission3() {
+    public void testCollission3() throws IOException {
         Block block = new Block(290);
         block.setY(221);
         block.setY2(600);
         assertTrue(model.collission(block));
+        
     }
       @Test
-    public void testCollission4() {
+    public void testCollission4() throws IOException {
         Block block = new Block(290);
         block.setY(640);
         block.setY2(264);
         assertTrue(model.collission(block));
     }
       @Test
-    public void testCollission5() {
+    public void testCollission5() throws IOException {
         Block block = new Block(290);
         block.setY(640);
         block.setY2(219);

@@ -41,6 +41,9 @@ public class Controller implements Runnable{
     public Model getModel(){
         return this.model;
     }
+    /*
+    **Metodi kutsuu mallin metodia alustamaan pelin.
+    */
     public void startGame(){ 
         this.model.init();
        
@@ -58,12 +61,17 @@ public class Controller implements Runnable{
     public void newHighscore(String name){
         model.newHighscore(name);
     }
+    /**
+    *Metodi käskee mallia suorittamaan fly-metodin jos peli on alkanut.
+    */
     public void click(){
         if(model.getGameState()==Model.GameState.GAME){   
         model.fly();
         }
     }
-
+    /**
+    *
+    */
     @Override
     public void run() {
          try {
@@ -77,7 +85,7 @@ public class Controller implements Runnable{
        
          } catch (InterruptedException ex) {
              
-            }
+         }
         
       
     }

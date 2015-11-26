@@ -14,8 +14,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -29,65 +27,64 @@ public class HighscoreList{
 
          
     public HighscoreList(){
-       this.file = new File("highscorelist.dat");
-       this.readFile();       
+       
+       this.players = new ArrayList<>();
+              
     }
-    public void readFile(){
-        try {
-            /**
-             * Jos tiedostoa ei ole olemassa luodaan se.
-             */
-            if(this.file.createNewFile()){
-                this.players = new ArrayList<>();
-            }
-            /**
-             * Muussa tapauksessa luetaan tiedostosta.
-             */
-            else{
-                
+    /**
+    *Metodi lukee highscorelista.dat tiedoston, jos se on olemassa.
+    */
+    public void readFile() throws IOException, ClassNotFoundException{
+     this.file = new File("highscorelist.dat");
             
+            /**
+             *Jos tiedosto on olemassa luetaan se.
+             */
+           
+            if(this.file.exists()){
+                
+                 
             /**
              * Yritetään lukea ArrayListia pelaajista, jos tiedosto on tyhjä
              * otetaan poikkeus kiinni ja luodaan tyhjä ArrayList-pelaajista.
              */
            this.ois = new ObjectInputStream(new FileInputStream(this.file));
            this.players = (ArrayList <Player>)this.ois.readObject();
-           this.ois.close();
-           }
-        } catch (IOException ex) {
-          this.players = new ArrayList<>();
-        } catch (ClassNotFoundException ex) {
           
-        }
+           
+           this.ois.close();
+           
+           }
+        
             
         
     }
+    
     public File getFile(){
         return this.file;
     }
-    public void writePlayer(Player player){
-        /**
-         * Lisätään uusi pelaaja ArrayListiin ja lajitellaan pelaajat pisteiden mukaan, poistetaan 11.pelaaja.
-         */
+    /**
+    * Lisätään uusi pelaaja ArrayListiin ja lajitellaan pelaajat pisteiden mukaan, poistetaan 11.pelaaja.
+    */
+    public void writePlayer(Player player) throws IOException{
+        
         this.players.add(player);
         Collections.sort(players,new PlayerComp());
         if(this.players.size()>10){
-        this.players.removeAll(players.subList(10,players.size()-1));
+        this.players.removeAll(players.subList(10,players.size()));
         }
         this.writeToFile();
     }
-    
-    public void writeToFile(){
-        /**
-         * Kirjoitetaan uusi ArrayList tiedostoon.
-        */
-        try {
+    /**
+    * Kirjoitetaan uusi ArrayList tiedostoon.
+    */
+    public void writeToFile() throws IOException{
+        
+       
             this.oos = new ObjectOutputStream(new FileOutputStream(this.file));
             this.oos.writeObject(this.players);
             this.oos.close();
-        } catch (IOException ex) {
-            Logger.getLogger(HighscoreList.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        
     }
     public ArrayList<Player> getPlayers(){
         return this.players;

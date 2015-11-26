@@ -10,8 +10,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -25,24 +23,25 @@ public class Block {
     private int imageHeadHeight;
     private BufferedImage imageHead,imageHead2,image,image2;
     private boolean points;
-    public Block(int x){
+    public Block(int x) throws IOException{
         this.x=x;
         this.width =81;
         this.imageHeadHeight=45;
         this.points = true;
         generateY();
-        try {
-            this.imageHead = ImageIO.read(new File("blockHead.png"));
-            this.imageHead2 = ImageIO.read(new File("blockHead2.png"));
-            this.image = ImageIO.read(new File("block.png"));
-            this.image2 = ImageIO.read(new File("block2.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(Block.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      
+        this.imageHead = ImageIO.read(new File("blockHead.png"));
+        this.imageHead2 = ImageIO.read(new File("blockHead2.png"));
+        this.image = ImageIO.read(new File("block.png"));
+        this.image2 = ImageIO.read(new File("block2.png"));
+       
     }
     public int getX(){
         return this.x;
     }
+    /**
+    *Generoidaan y-kordinaatit Block-oliolle.
+    */
     public void generateY(){
          this.y = (int)(Math.random()*240)+160;
          
@@ -60,6 +59,7 @@ public class Block {
     public boolean getPoints(){
         return this.points;
     }
+    
     public void setPoints(boolean points){
         this.points = points;
     }
@@ -69,6 +69,9 @@ public class Block {
     public int getY2(){
         return this.y2;
     }
+    /**
+    *Liikutetaan Block-oliota, kun olio saavuttaa x-kordinaatin -560 palautetaan se x-kordinaattiin 640.
+    */
     public void move(){
         if(this.x>-560){
         this.x--;   

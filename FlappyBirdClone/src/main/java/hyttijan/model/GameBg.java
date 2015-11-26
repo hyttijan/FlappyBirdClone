@@ -21,16 +21,17 @@ public class GameBg {
     private double x,x2;
     private int y;
     private BufferedImage image;
-    public GameBg(){
+    public GameBg() throws IOException{
         this.x=0;
         this.y=0;
         this.x2=640;     
-        try {
-            this.image = ImageIO.read(new File("gamebg.jpeg"));
-        } catch (IOException ex) {
-            Logger.getLogger(GameBg.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        this.image = ImageIO.read(new File("gamebg.jpeg"));
+      
     }
+    /**
+    *Liikutetaan taustaa, kun tausta saavuttaa x-kordinaatin -640 siiretään se 640.
+    */
     public void updateX(){
         if(this.x>-640){
         this.x=this.x-0.5;
@@ -55,7 +56,6 @@ public class GameBg {
     public void paintGameBg(Graphics g){
       
         g.drawImage(image,(int)this.x,this.y,640,480, null);
-        
         g.drawImage(image,(int)this.x2,this.y,640,480, null);
       
        

@@ -39,8 +39,11 @@ public class View extends JFrame {
     public View(){
         init();
     }
-    
+    /**
+    *Metodi alustaa näkymän.
+    */
     public final void init(){
+        
         dimension = new Dimension(640,480);
         this.setPreferredSize(dimension);
         this.setMinimumSize(dimension);
@@ -51,11 +54,14 @@ public class View extends JFrame {
         
         
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
         this.setVisible(true);
     }
     
    
-    
+    /**
+    *Metodi rekisteröi Controller olion Viewille ja kutsuu GamePanelin vastaavaa metodia.
+    */
     public void registerController(Controller controller){
         this.controller = controller;
         this.gamePanel.registerController(controller);
@@ -71,7 +77,9 @@ public class View extends JFrame {
     }
     private class ButtonListener implements ActionListener{
        
-       
+       /**
+        *Metodi käsittelee nappejen painamiset.
+        */
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getSource()==gamePanel.startGame){
@@ -101,6 +109,7 @@ public class View extends JFrame {
     }
     
     private class GamePanel extends JPanel{
+        private ErrorView errorView;
         private Controller controller;
         private JButton startGame;
         private JButton highscores;
@@ -152,10 +161,15 @@ public class View extends JFrame {
         
         }
         
-       
+       /**
+        *Metodi rekisteröi Controller olion GamePanelille.
+        */
         public void registerController(Controller controller){
             this.controller = controller;        
         }
+        /**
+        *Metodi päivittää näkymää.
+        */
         public void update(){
             if(controller.getModel().getGameState()==GameState.MENU){
                 this.back.setVisible(false);
@@ -181,6 +195,10 @@ public class View extends JFrame {
             else if(controller.getModel().getGameState()==GameState.GAME){
                 this.startGame.setVisible(false);
                 this.highscores.setVisible(false);
+            }
+            else if(controller.getModel().getGameState()==GameState.ERROR){
+                
+                this.errorView = new ErrorView((View)this.getRootPane().getParent(),controller.getModel().getErrorMessage());
             }
             this.repaint();
         }

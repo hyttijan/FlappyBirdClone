@@ -5,6 +5,7 @@
  */
 package hyttijan.model;
 
+import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class BirdTest {
     
     
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
        bird = new Bird(290,220); 
     }
     

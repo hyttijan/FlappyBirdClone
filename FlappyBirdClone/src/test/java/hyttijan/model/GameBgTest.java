@@ -5,6 +5,7 @@
  */
 package hyttijan.model;
 
+import java.io.IOException;
 import org.junit.After;
 import static org.junit.Assert.assertFalse;
 import org.junit.Before;
@@ -22,7 +23,7 @@ public class GameBgTest {
    
     
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
        gameBg = new GameBg();
     }
     

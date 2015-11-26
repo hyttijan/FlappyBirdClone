@@ -14,7 +14,9 @@ import java.util.Comparator;
  */
 
     public class PlayerComp implements Comparator<Player>{
-    
+        /**
+        *Metodi vertaa kahta pelaajaa keskenään ja palauttaa arvon pelaajien pistemäärän perusteella.
+        */    
         public int compare(Player player1, Player player2) {
         
         if(player1.getScore()<player2.getScore()){

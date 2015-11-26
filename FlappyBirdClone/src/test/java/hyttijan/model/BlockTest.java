@@ -5,6 +5,7 @@
  */
 package hyttijan.model;
 
+import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class BlockTest {
     
     
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         block = new Block(100);
         block2= new Block(-559);
     }

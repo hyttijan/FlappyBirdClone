@@ -11,8 +11,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -27,23 +25,17 @@ public class Bird {
     private BufferedImage image;
 
     
-       public Bird(double x,double y){
+       public Bird(double x,double y) throws IOException{
         this.x =x;
         this.y =y;
         this.velocityY = 0;
         this.height=36;
         this.width=44;
-     
-        try {
-         
-            this.image =  ImageIO.read(new File("flappy.png"));
+        this.image =  ImageIO.read(new File("flappy.png"));
            
             
          
-            
-        } catch (IOException ex) {
-            Logger.getLogger(Bird.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
     }
     
     public void setY(double y){
@@ -64,6 +56,9 @@ public class Bird {
     public void setVelocityY(double velocityY){
         this.velocityY = velocityY;
     }
+    /**
+    *Metodi siirtää lintua y-kiihtyvyyden verran nykyisestä paikasta.
+    */
     public void move(){
         this.y = this.y+this.velocityY;
     }
