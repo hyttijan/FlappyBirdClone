@@ -46,3 +46,6 @@
 * Kirjoiteltu javadoc-dokumentaatiota
 * Muokattu luokkakaaviota
 * Aikaa kului n. 1h
+####4.12####
+* Lisätty sekvenssikaaviot
+* Aikaa kului n.4h

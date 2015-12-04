@@ -241,6 +241,9 @@ public class View extends JFrame {
 
         
     }
+        /**
+        *paintGame-metodi piirtää pelin
+        */
         public void paintGame(Graphics g,Model model){
                 model.getGameBg().paintGameBg(g);
                 model.getBird().paintBird(g);

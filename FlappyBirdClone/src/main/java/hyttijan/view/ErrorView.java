@@ -15,6 +15,11 @@ import javax.swing.JOptionPane;
 public class ErrorView{
     private View view;
     private String message;
+    /**
+     * ErrorView näyttää virheilmoituksen
+     * @param view
+     * @param message 
+     */
     public ErrorView(View view,String message){
         this.message=message;
         JOptionPane.showMessageDialog(view, message);
