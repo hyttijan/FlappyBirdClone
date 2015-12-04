@@ -6,5 +6,5 @@ Pelissä lennetään linnulla tai jollain muulla objektilla väistellen eteen tu
 **Pelaajan toiminnot:** 
 * Lentää linnulla väistellen esteitä
 * Omien tulosten lisäys highscorelistalle, jos onnistuu tarpeeksi hyvin
-* Mahdollisesti poweruppeja, joista voisi saada lisää pisteitä.
+
 
