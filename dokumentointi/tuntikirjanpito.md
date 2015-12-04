@@ -34,18 +34,22 @@
 * Highscore-luokan testaus aloitettu. Model ja GameBg-luokan testauksia lisätty.
 * Luokkakaavio päivitetty.
 * Aikaa kului n.3h
+
 ####20.11####
 * Jaettu ohjelma eri pakkauksiin näkymän, kontrollerin ja malliin kuulumisen 	mukaan
 * Lisäilty testejä useisiin luokkiin
 * Aikaa kului n.2h
+
 ####24.11####
 * Lisätty ErrorView-luokka, joka ilmaisee jos ohjelman suorituksen aikana tapahtuu virhe
 * Lisäilty yhä enemmän testejä, sekä tehty pieniä muokkauksia muuhun koodiin.
 * Aikaa kului n. 3h
+
 ####25.11####
 * Kirjoiteltu javadoc-dokumentaatiota
 * Muokattu luokkakaaviota
 * Aikaa kului n. 1h
+
 ####4.12####
 * Lisätty sekvenssikaaviot
 * Lisätty javadocs
