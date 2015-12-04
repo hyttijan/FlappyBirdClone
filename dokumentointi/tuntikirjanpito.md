@@ -48,4 +48,5 @@
 * Aikaa kului n. 1h
 ####4.12####
 * Lisätty sekvenssikaaviot
+* Lisätty javadocs
 * Aikaa kului n.4h
