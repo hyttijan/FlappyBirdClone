@@ -31,7 +31,8 @@ public class Bird {
         this.velocityY = 0;
         this.height=36;
         this.width=44;
-        this.image =  ImageIO.read(new File("flappy.png"));
+        ClassLoader cl = this.getClass().getClassLoader();
+        this.image =  ImageIO.read(cl.getResource("flappy.png"));
            
             
          

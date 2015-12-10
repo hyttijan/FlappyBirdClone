@@ -9,8 +9,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -25,8 +23,8 @@ public class GameBg {
         this.x=0;
         this.y=0;
         this.x2=640;     
-        
-        this.image = ImageIO.read(new File("gamebg.jpeg"));
+        ClassLoader cl = this.getClass().getClassLoader();
+        this.image = ImageIO.read(cl.getResource("gamebg.jpeg"));
       
     }
     /**

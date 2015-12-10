@@ -29,11 +29,11 @@ public class Block {
         this.imageHeadHeight=45;
         this.points = true;
         generateY();
-      
-        this.imageHead = ImageIO.read(new File("blockHead.png"));
-        this.imageHead2 = ImageIO.read(new File("blockHead2.png"));
-        this.image = ImageIO.read(new File("block.png"));
-        this.image2 = ImageIO.read(new File("block2.png"));
+        ClassLoader cl = this.getClass().getClassLoader();
+        this.imageHead = ImageIO.read(cl.getResource("blockHead.png"));
+        this.imageHead2 = ImageIO.read(cl.getResource("blockHead2.png"));
+        this.image = ImageIO.read(cl.getResource("block.png"));
+        this.image2 = ImageIO.read(cl.getResource("block2.png"));
        
     }
     public int getX(){
