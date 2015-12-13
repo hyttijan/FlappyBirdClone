@@ -45,7 +45,11 @@ public class Model {
     }
     
     public HighscoreList getHighscoreList(){
+     
+            
+        
         return this.highscoreList;
+        
     }
     /**
     *Pelin alustaja. Tätä kutsutaan kun varsinainen peli alkaa.
@@ -146,13 +150,19 @@ public class Model {
      *Metodi tarkistaa oikeuttaako pelaajan tulos ennätyslistoille.
      */
    public boolean newRecord(){
-    if(this.getHighscoreList().getPlayers().size()>=10){
-       if(this.points>this.getHighscoreList().getPlayers().get(9).getScore()){
-       return true;
+       if(this.points==0){
+           return false;
        }
-    return false;   
-    }   
-       return true;
+       else if(this.getHighscoreList().getPlayers().size()>=10){
+        if(this.points>this.getHighscoreList().getPlayers().get(9).getScore()){
+        return true;
+       }
+       return false;   
+       }
+       else{
+       return true;    
+       }
+       
    }
   /**
    *Metodi tarkistaa tapahtuuko törmäys Bird olion ja Block olion välillä.

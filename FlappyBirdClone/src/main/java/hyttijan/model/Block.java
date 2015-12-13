@@ -8,7 +8,6 @@ package hyttijan.model;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
@@ -30,6 +29,7 @@ public class Block {
         this.points = true;
         generateY();
         ClassLoader cl = this.getClass().getClassLoader();
+
         this.imageHead = ImageIO.read(cl.getResource("blockHead.png"));
         this.imageHead2 = ImageIO.read(cl.getResource("blockHead2.png"));
         this.image = ImageIO.read(cl.getResource("block.png"));

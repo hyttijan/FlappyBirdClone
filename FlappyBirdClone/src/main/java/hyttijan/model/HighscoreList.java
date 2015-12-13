@@ -28,20 +28,22 @@ public class HighscoreList{
          
     public HighscoreList(){
        
-       this.players = new ArrayList<>();
+       this.players = new ArrayList<Player>();
               
     }
     /**
     *Metodi lukee highscorelista.dat tiedoston, jos se on olemassa.
     */
+    
     public void readFile() throws IOException, ClassNotFoundException{
-     this.file = new File("highscorelist.dat");
-            
+     
+     this.file = new File("highscores.dat");
             /**
              *Jos tiedosto on olemassa luetaan se.
              */
            
             if(this.file.exists()){
+                
                 
                  
             /**
@@ -49,12 +51,14 @@ public class HighscoreList{
              * otetaan poikkeus kiinni ja luodaan tyhjä ArrayList-pelaajista.
              */
            this.ois = new ObjectInputStream(new FileInputStream(this.file));
+           
            this.players = (ArrayList <Player>)this.ois.readObject();
           
            
            this.ois.close();
            
            }
+           
         
             
         
@@ -67,12 +71,16 @@ public class HighscoreList{
     * Lisätään uusi pelaaja ArrayListiin ja lajitellaan pelaajat pisteiden mukaan, poistetaan 11.pelaaja.
     */
     public void writePlayer(Player player) throws IOException{
-        
+       
         this.players.add(player);
         Collections.sort(players,new PlayerComp());
+      
         if(this.players.size()>10){
-        this.players.removeAll(players.subList(10,players.size()));
+        for(int i=10;i<this.players.size();i++){
+            this.players.remove(i);
         }
+        }
+      
         this.writeToFile();
     }
     /**
@@ -80,19 +88,15 @@ public class HighscoreList{
     */
     public void writeToFile() throws IOException{
         
-       
+            
             this.oos = new ObjectOutputStream(new FileOutputStream(this.file));
             this.oos.writeObject(this.players);
             this.oos.close();
+           
         
     }
     public ArrayList<Player> getPlayers(){
         return this.players;
-    }
-    
-   
-    
-   
-    
+    }    
     
 }

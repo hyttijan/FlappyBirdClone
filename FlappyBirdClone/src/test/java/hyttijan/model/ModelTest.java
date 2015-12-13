@@ -71,8 +71,20 @@ public class ModelTest {
         
         }
         else{
-        assertEquals(model.getGameState(),GameState.NEWRECORD);    
-        }         
+        assertEquals(model.getGameState(),GameState.GAMEOVER);    
+        }
+        if(model.getHighscoreList().getPlayers().size()>0){
+            
+        
+        while(model.getPoints()<model.getHighscoreList().getPlayers().get(model.getHighscoreList().getPlayers().size()-1).getScore()){
+         model.addPoints();
+        }
+        System.out.println(model.getPoints());
+        model.addPoints();
+        model.update();
+        assertEquals(model.getGameState(),GameState.NEWRECORD);
+        }
+     
     }
 
     /**
@@ -143,16 +155,19 @@ public class ModelTest {
             this.model.addPoints();
             
         }
+    
         /**
          * Nyt lisätään pisteitä vielä kerran, tämän pitäisi riittää listalle pääsyyn.
         */
         this.model.addPoints();
+       
         assertTrue(this.model.newRecord());
         }
         /**
-        *Jos pelaajia on vähemmän kuin kymmenen pääsee automaattisesti listoille.
+        *Jos pelaajia on vähemmän kuin kymmenen pääsee automaattisesti listoille, jos pisteitä on yksi.
         */
         else{
+            this.model.addPoints();
         assertTrue(this.model.newRecord());
         }
     
@@ -163,6 +178,12 @@ public class ModelTest {
     /**
      * Testataan että linnun törmäys toimii oikein palikoihin.
      */
+    @Test 
+    public void testGameOverOrNewRecord(){
+        this.model.getBird().setY(-20);
+        this.model.update();
+        assertTrue(this.model.getGameState() == GameState.GAMEOVER);
+    }
     @Test
     public void testCollission1() throws IOException {
         Block block = new Block(100);

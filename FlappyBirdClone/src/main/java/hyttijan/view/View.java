@@ -28,12 +28,13 @@ import javax.swing.JTextField;
  *
  * @author janne
  */
-public class View extends JFrame {
+public class View extends JFrame{
     private Controller controller;
     private JPanel mainPanel;
     private GamePanel gamePanel;
     private Dimension dimension;
    
+    
    
     
     public View(){
@@ -48,7 +49,7 @@ public class View extends JFrame {
         this.setPreferredSize(dimension);
         this.setMinimumSize(dimension);
         this.setMaximumSize(dimension);
-        this.setTitle("Flappy Bird clone");
+        this.   setTitle("Flappy Bird clone");
         this.gamePanel = new GamePanel();
         this.getContentPane().add(this.gamePanel);
         
@@ -56,7 +57,10 @@ public class View extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setVisible(true);
+        
     }
+    
+  
     
    
     /**
@@ -65,9 +69,11 @@ public class View extends JFrame {
     public void registerController(Controller controller){
         this.controller = controller;
         this.gamePanel.registerController(controller);
-       
+        
 
     }
+    
+         
     
     public void update(){
     this.gamePanel.update();
@@ -102,6 +108,7 @@ public class View extends JFrame {
                 gamePanel.update();
                 
             }
+            
            
         }
         
@@ -125,7 +132,7 @@ public class View extends JFrame {
         this.buttonListener = new ButtonListener();
         this.startGame = new JButton("Start game");
         this.startGame.addActionListener(buttonListener);
-        this.highscores = new JButton("Highscores");
+        this.highscores = new JButton("Highscore");
         this.highscores.addActionListener(buttonListener);
         this.back = new JButton("Back");
         this.back.addActionListener(buttonListener);
@@ -141,8 +148,8 @@ public class View extends JFrame {
         this.add(this.back);
         this.add(this.name);
         this.add(this.submit);
-        this.font = new Font("Serif",Font.PLAIN,36);
-        this.font2 = new Font("Serif",Font.PLAIN,20);
+        this.font = new Font("Arial Unicode MS",Font.PLAIN,36);
+        this.font2 = new Font("Arial Unicode MS",Font.PLAIN,20);
         this.addMouseListener(new MouseListener(){
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -211,13 +218,13 @@ public class View extends JFrame {
              paintGame(g,model);
             }
             else if(model.getGameState()==GameState.GAMEOVER){
-                paintGame(g,model);
+               
                 g.setColor(Color.red);
                 g.setFont(this.font);
                 g.drawString("GAME OVER",290,240);
             }
             else if(model.getGameState()==GameState.NEWRECORD){
-                paintGame(g,model);
+               
                 g.setColor(Color.red);
                 g.setFont(this.font);
                 g.drawString("NEW RECORD",290,240);
@@ -234,8 +241,9 @@ public class View extends JFrame {
                 }
             }
             else{
-                 g.setColor(Color.gray);
+                 g.setColor(Color.gray); 
                  g.clearRect(0, 0, 640, 480); 
+                 
             }
             
 
@@ -252,7 +260,7 @@ public class View extends JFrame {
                 }
                 g.setColor(Color.red);
                 g.setFont(this.font);
-                g.drawString(Integer.toString(model.getPoints()),600, 440);
+                g.drawString(Integer.toString(model.getPoints()),580, 440);
                   
         }
    

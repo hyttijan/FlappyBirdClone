@@ -79,6 +79,7 @@ public class Controller implements Runnable{
             if(model.getGameState()==Model.GameState.GAME){   
                 model.update();
                 view.update();
+           
             }
             Thread.sleep(5);
         }
